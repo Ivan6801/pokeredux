@@ -1,23 +1,33 @@
-import logo from './logo.svg';
+/* eslint-disable react/react-in-jsx-scope */
+import { useEffect, useState } from 'react';
+import { Col } from 'antd';
+import Searcher from './components/Searcher';
+import PokemonList from './components/PokemonList';
+import logo from './statics/logo.svg';
+import { getPokemon } from './api';
 import './App.css';
 
 function App() {
+  const [pokemons, setPokemons] = useState([]);
+
+  useEffect(() => {
+    const fetchPokemons = async () => {
+      const pokemonsRes = await getPokemon();
+      setPokemons(pokemonsRes);
+    };
+
+    fetchPokemons();
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='App'>
+      <Col>
+        <img src={logo} alt='Pokedux' />
+      </Col>
+      <Col span={8} offset={8}>
+        <Searcher />
+      </Col>
+      <PokemonList pokemons={pokemons} />
     </div>
   );
 }
