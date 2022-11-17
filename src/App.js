@@ -4,7 +4,7 @@ import { Col } from 'antd';
 import Searcher from './components/Searcher';
 import PokemonList from './components/PokemonList';
 import logo from './statics/logo.svg';
-import { getPokemon } from './api';
+import { getPokemons } from './api';
 import './App.css';
 
 function App() {
@@ -12,7 +12,7 @@ function App() {
 
   useEffect(() => {
     const fetchPokemons = async () => {
-      const pokemonsRes = await getPokemon();
+      const pokemonsRes = await getPokemons();
       setPokemons(pokemonsRes);
     };
 
